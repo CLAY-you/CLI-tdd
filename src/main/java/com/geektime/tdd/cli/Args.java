@@ -24,13 +24,7 @@ public class Args {
     }
 
     private static Object parseOption(List<String> arguments, Parameter parameter) {
-        Option option = parameter.getAnnotation(Option.class);
-
-        Class<?> parameterType = parameter.getType();
-
-        OptionParser parser = getOptionParser(parameterType);
-
-        return parser.parse(arguments, option);
+        return getOptionParser(parameter.getType()).parse(arguments, parameter.getAnnotation(Option.class));
     }
 
     private static OptionParser getOptionParser(Class<?> parameterType) {
