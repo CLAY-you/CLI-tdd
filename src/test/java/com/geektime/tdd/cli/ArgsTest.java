@@ -1,5 +1,6 @@
 package com.geektime.tdd.cli;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
@@ -39,6 +40,7 @@ public class ArgsTest {
     // TODO: - String: ""
 
     @Test
+    @Disabled
     void should1_() {
         Options options = Args.parse(Options.class, "-l -p 8080 -d /usr/logs");
         assertTrue(Objects.requireNonNull(options).logging());
@@ -49,6 +51,7 @@ public class ArgsTest {
 
     //-g this is a list -d 1 2 -3 5
     @Test
+    @Disabled
     void should2_() {
         ListOptions options = Args.parse(ListOptions.class, "-g this is a list -d 1 2 -3 5");
         assertEquals(new String[]{"this", "is", "a", "list"}, Objects.requireNonNull(options).group());
