@@ -14,7 +14,6 @@ public class ArgsTest {
 
     //happy path:
     //SingleOption:
-    // TODO：- Bool: -l
     @Test
     void should_set_boolean_option_to_true_if_flag_present() {
         BooleanOption option = Args.parse(BooleanOption.class, "-l");
