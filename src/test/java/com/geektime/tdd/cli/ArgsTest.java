@@ -26,7 +26,7 @@ public class ArgsTest {
         assertFalse(option.logging());
     }
 
-    static record BooleanOption(@Optional("l") boolean logging) {
+    static record BooleanOption(@Option("l") boolean logging) {
     }
 
     @Test
@@ -35,7 +35,7 @@ public class ArgsTest {
         assertEquals(8080, option.port());
     }
 
-    static record IntOption(@Optional("d") int port) {
+    static record IntOption(@Option("d") int port) {
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ArgsTest {
         assertEquals("/user/logs", option.directory());
     }
 
-    static record StrOption(@Optional("d") String directory) {
+    static record StrOption(@Option("d") String directory) {
     }
 
     //MultipleOption:
@@ -57,8 +57,8 @@ public class ArgsTest {
         assertEquals("/user/logs", options.directory());
     }
 
-    static record MultipleOptions(@Optional("l") boolean logging, @Optional("p") int port,
-                                  @Optional("d") String directory) {
+    static record MultipleOptions(@Option("l") boolean logging, @Option("p") int port,
+                                  @Option("d") String directory) {
     }
 
     //sad path:
@@ -80,6 +80,6 @@ public class ArgsTest {
         assertEquals(new int[]{1, 2, -3, 5}, options.decimals());
     }
 
-    static record ListOptions(@Optional("g") String[] group, @Optional("d") int[] decimals) {
+    static record ListOptions(@Option("g") String[] group, @Option("d") int[] decimals) {
     }
 }
