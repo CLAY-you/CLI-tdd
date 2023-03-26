@@ -8,30 +8,34 @@ import java.util.List;
 public class Args {
     public static <T> T parse(Class<T> optionType, String... args) {
         try {
-            Constructor<?> constructor = optionType.getDeclaredConstructors()[0];
-            Parameter parameter = constructor.getParameters()[0];
-            Optional option = parameter.getAnnotation(Optional.class);
             List<String> arguments = Arrays.asList(args);
+            Constructor<?> constructor = optionType.getDeclaredConstructors()[0];
 
-            Object value = null;
+            Object[] values = Arrays.stream(constructor.getParameters()).map(param -> parseOption(arguments, param)).toArray();
 
-            if (parameter.getType() == boolean.class) {
-                value = arguments.contains(String.format("-%s", option.value()));
-            }
-
-            if (parameter.getType() == int.class) {
-                int index = arguments.indexOf(String.format("-%s", option.value()));
-                value = Integer.parseInt(arguments.get(index + 1));
-            }
-
-            if (parameter.getType() == String.class) {
-                int index = arguments.indexOf(String.format("-%s", option.value()));
-                value = arguments.get(index + 1);
-            }
-
-            return (T) constructor.newInstance(value);
+            return (T) constructor.newInstance(values);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static Object parseOption(List<String> arguments, Parameter parameter) {
+        Optional option = parameter.getAnnotation(Optional.class);
+        Object value = null;
+
+        if (parameter.getType() == boolean.class) {
+            value = arguments.contains(String.format("-%s", option.value()));
+        }
+
+        if (parameter.getType() == int.class) {
+            int index = arguments.indexOf(String.format("-%s", option.value()));
+            value = Integer.parseInt(arguments.get(index + 1));
+        }
+
+        if (parameter.getType() == String.class) {
+            int index = arguments.indexOf(String.format("-%s", option.value()));
+            value = arguments.get(index + 1);
+        }
+        return value;
     }
 }
