@@ -13,10 +13,15 @@ public class Args {
             Optional option = parameter.getAnnotation(Optional.class);
             List<String> arguments = Arrays.asList(args);
 
-            Boolean value = null;
+            Object value = null;
 
             if (parameter.getType() == boolean.class) {
                 value = arguments.contains(String.format("-%s", option.value()));
+            }
+
+            if (parameter.getType() == int.class) {
+                int index = arguments.indexOf(String.format("-%s", option.value()));
+                value = Integer.parseInt(arguments.get(index + 1));
             }
 
             return (T) constructor.newInstance(value);

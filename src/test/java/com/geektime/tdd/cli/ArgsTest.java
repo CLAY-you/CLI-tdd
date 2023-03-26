@@ -31,6 +31,13 @@ public class ArgsTest {
 
     // TODO: - Integer: -d
 
+    @Test
+    void should_parse_int_option_value() {
+        IntOption option = Args.parse(IntOption.class, "-d", "8080");
+        assertEquals(8080, option.port());
+    }
+
+    static record IntOption(@Optional("d") int port) {}
     // TODO: - String: -s
     //MultipleOption:
     // TODO: -l -p 8080 -d /usr/logs
