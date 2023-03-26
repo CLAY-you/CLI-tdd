@@ -29,8 +29,6 @@ public class ArgsTest {
     static record BooleanOption(@Optional("l") boolean logging) {
     }
 
-    // TODO: - Integer: -d
-
     @Test
     void should_parse_int_option_value() {
         IntOption option = Args.parse(IntOption.class, "-d", "8080");
