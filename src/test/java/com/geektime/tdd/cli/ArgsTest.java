@@ -13,7 +13,17 @@ public class ArgsTest {
     //happy path:
     //SingleOption:
     // TODO：- Bool: -l
+    @Test
+    void should_set_boolean_option_to_true_if_flag_present() {
+        BooleanOption option = Args.parse(BooleanOption.class, "-l");
+        assertTrue(Objects.requireNonNull(option).logging());
+    }
+
+    static record BooleanOption(@Optional("l") boolean logging) {
+    }
+
     // TODO: - Integer: -d
+
     // TODO: - String: -s
     //MultipleOption:
     // TODO: -l -p 8080 -d /usr/logs
