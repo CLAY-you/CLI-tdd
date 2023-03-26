@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.function.Function;
 
 class IntOptionParser implements OptionParser {
-    Function<String, Object> valueParser = Integer::parseInt;
-
-    public IntOptionParser() {
-    }
+    Function<String, Object> valueParser;
 
     public IntOptionParser(Function<String, Object> valueParser) {
         this.valueParser = valueParser;
+    }
+
+    public static OptionParser createIntOptionParser() {
+        return new IntOptionParser(Integer::valueOf);
     }
 
     @Override
