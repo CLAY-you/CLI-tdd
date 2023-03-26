@@ -25,15 +25,13 @@ public class Args {
     }
 
     private static Object parseOption(List<String> arguments, Parameter parameter) {
-        return getOptionParser(parameter.getType()).parse(arguments, parameter.getAnnotation(Option.class));
+        return PARSERS.get(parameter.getType()).parse(arguments, parameter.getAnnotation(Option.class));
     }
 
-    private static Map<Class<?>, OptionParser> PARSERS = Map.of(boolean.class, new BooleanOptionParser(),
-            int.class, new IntOptionParser(), String.class, new StringOptionParser());
-
-    private static OptionParser getOptionParser(Class<?> parameterType) {
-        return PARSERS.get(parameterType);
-    }
+    private static Map<Class<?>, OptionParser> PARSERS = Map.of(
+            boolean.class, new BooleanOptionParser(),
+            int.class, new IntOptionParser(),
+            String.class, new StringOptionParser());
 
     static class BooleanOptionParser implements OptionParser {
         @Override
