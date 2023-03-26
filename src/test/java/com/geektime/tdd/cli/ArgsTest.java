@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ArgsTest {
@@ -18,6 +19,12 @@ public class ArgsTest {
     void should_set_boolean_option_to_true_if_flag_present() {
         BooleanOption option = Args.parse(BooleanOption.class, "-l");
         assertTrue(Objects.requireNonNull(option).logging());
+    }
+
+    @Test
+    void should_set_boolean_option_to_false_if_flag_is_not_present() {
+        BooleanOption option = Args.parse(BooleanOption.class);
+        assertFalse(option.logging());
     }
 
     static record BooleanOption(@Optional("l") boolean logging) {
