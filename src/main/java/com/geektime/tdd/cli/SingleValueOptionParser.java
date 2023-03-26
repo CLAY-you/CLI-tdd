@@ -3,15 +3,15 @@ package com.geektime.tdd.cli;
 import java.util.List;
 import java.util.function.Function;
 
-class IntOptionParser implements OptionParser {
+class SingleValueOptionParser implements OptionParser {
     Function<String, Object> valueParser;
 
-    public IntOptionParser(Function<String, Object> valueParser) {
+    public SingleValueOptionParser(Function<String, Object> valueParser) {
         this.valueParser = valueParser;
     }
 
     public static OptionParser createIntOptionParser() {
-        return new IntOptionParser(Integer::valueOf);
+        return new SingleValueOptionParser(Integer::valueOf);
     }
 
     @Override
