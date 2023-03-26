@@ -35,8 +35,17 @@ public class ArgsTest {
         assertEquals(8080, option.port());
     }
 
-    static record IntOption(@Optional("d") int port) {}
-    // TODO: - String: -s
+    static record IntOption(@Optional("d") int port) {
+    }
+
+    @Test
+    void should_parse_string_option_value() {
+        StrOption option = Args.parse(StrOption.class, "-d", "/user/logs");
+        assertEquals("/user/logs", option.directory());
+    }
+
+    static record StrOption(@Optional("d") String directory) {
+    }
     //MultipleOption:
     // TODO: -l -p 8080 -d /usr/logs
 

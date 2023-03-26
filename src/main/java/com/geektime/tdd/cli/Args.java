@@ -24,6 +24,11 @@ public class Args {
                 value = Integer.parseInt(arguments.get(index + 1));
             }
 
+            if (parameter.getType() == String.class) {
+                int index = arguments.indexOf(String.format("-%s", option.value()));
+                value = arguments.get(index + 1);
+            }
+
             return (T) constructor.newInstance(value);
         } catch (Exception e) {
             throw new RuntimeException(e);
